@@ -1,0 +1,235 @@
+'use client';
+
+import { useParams, useRouter } from 'next/navigation';
+import { busRoutes } from '../data/busRoutes';
+import { useState, useEffect } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Badge } from './ui/badge';
+import { MapPin, Navigation, Clock, CircleDot, ArrowLeft, Copy, Check } from 'lucide-react';
+import { ScheduleType } from '../types/bus';
+import { Button } from './ui/button';
+import { toast } from 'sonner';
+import { AnimatePresence, motion } from 'framer-motion';
+
+function FloatingCurrentTime() {
+  const [currentTime, setCurrentTime] = useState<string>('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      setCurrentTime(`${hours}:${minutes}`);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {currentTime && (
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.8 }}
+          transition={{ duration: 0.2 }}
+          className="fixed bottom-6 right-6 z-50"
+        >
+          <div className="py-2.5 px-3.5 shadow-lg rounded-2xl bg-gray-700 text-white flex flex-col items-start gap-1">
+            <div className="flex items-center gap-1.5 w-full">
+              <Clock className="w-3 h-3 flex-shrink-0" />
+              <span className="text-[10px] opacity-90">현재시간</span>
+            </div>
+            <div className="font-mono font-bold text-lg">{currentTime}</div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function CopyAddress({ address }: { address: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(address);
+    setCopied(true);
+    toast.success('주소가 복사되었습니다', { style: { color: 'white', background: 'black' } });
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <div className="text-xs text-muted-foreground flex items-start gap-1 mt-0.5">
+      <MapPin className="w-3 h-3 mt-0.5 flex-shrink-0" />
+      <span className="flex-1">{address}</span>
+      <button onClick={handleCopy} className="flex-shrink-0 mt-0.5 hover:text-foreground transition-colors">
+        {copied
+          ? <Check className="w-3 h-3 text-teal-500" />
+          : <Copy className="w-3 h-3" />
+        }
+      </button>
+    </div>
+  );
+}
+
+export function BusScheduleDetail() {
+  const params = useParams();
+  const routeId = params?.routeId as string;
+  const router = useRouter();
+  const [scheduleType, setScheduleType] = useState<ScheduleType>('commute');
+
+  const route = busRoutes.find(r => r.id === routeId);
+
+  useEffect(() => {
+    if (!route) {
+      router.replace('/');
+    }
+  }, [route, router]);
+
+  if (!route) return null;
+
+
+  return (
+    <div className="h-full overflow-auto">
+      <div className="max-w-4xl mx-auto p-6 space-y-6">
+        {/* Back Button */}
+        <div className="flex justify-end">
+          <Button
+            variant="outline"
+            onClick={() => router.push('/')}
+            className="gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            목록으로
+          </Button>
+        </div>
+
+        {/* Route Header */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div>
+              <h1 className="text-4xl font-bold text-primary mb-1">{route.routeName}</h1>
+              <p className="text-muted-foreground">
+                {route.type === 'express' ? '정류장을 거치지 않고 직행합니다' : `${route.stops.length}개의 정류장을 경유합니다`}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Route Map */}
+        <Card>
+          <CardHeader>
+            <CardTitle>노선 정보</CardTitle>
+            <CardDescription>출발지부터 도착지까지의 경로</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Origin */}
+            <div className="flex gap-3">
+              <div className="flex flex-col items-center">
+                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <Navigation className="w-4 h-4 text-primary-foreground" />
+                </div>
+                {(route.stops.length > 0 || route.type === 'regular') && (
+                  <div className="w-0.5 h-12 bg-border my-1"></div>
+                )}
+              </div>
+              <div className="flex-1 pt-1">
+                <div className="font-semibold">{route.origin.name}</div>
+                <CopyAddress address={route.origin.address} />
+              </div>
+            </div>
+
+            {/* Stops */}
+            {route.stops.map((stop, index) => (
+              <div key={stop.id} className="flex gap-3">
+                <div className="flex flex-col items-center">
+                  <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                    <CircleDot className="w-4 h-4 text-muted-foreground" />
+                  </div>
+                  {index < route.stops.length - 1 && (
+                    <div className="w-0.5 h-12 bg-border my-1"></div>
+                  )}
+                  {index === route.stops.length - 1 && (
+                    <div className="w-0.5 h-12 bg-border my-1"></div>
+                  )}
+                </div>
+                <div className="flex-1 pt-1">
+                  <div className="font-medium text-sm">{stop.name}</div>
+                  <CopyAddress address={stop.address} />
+                </div>
+              </div>
+            ))}
+
+            {/* Destination */}
+            <div className="flex gap-3">
+              <div className="flex flex-col items-center">
+                <div className="w-8 h-8 rounded-full bg-teal-500 flex items-center justify-center">
+                  <MapPin className="w-4 h-4 text-white" />
+                </div>
+              </div>
+              <div className="flex-1 pt-1">
+                <div className="font-semibold">{route.destination.name}</div>
+                <CopyAddress address={route.destination.address} />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Schedule */}
+        <Card>
+          <CardHeader>
+            <CardTitle>운행 시간표</CardTitle>
+            <CardDescription>출근/퇴근 시간대별 운행 스케줄</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Tabs value={scheduleType} onValueChange={(value) => setScheduleType(value as ScheduleType)}>
+              <TabsList className="grid w-full grid-cols-2 mb-6">
+                <TabsTrigger value="commute">출근 시간표</TabsTrigger>
+                <TabsTrigger value="return">퇴근 시간표</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="commute" className="mt-0">
+                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
+                  {route.commuteSchedule.map((schedule, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center justify-center p-2 rounded-lg bg-accent border border-border"
+                    >
+                      <Clock className="w-3 h-3 text-primary mb-1" />
+                      <span className="font-mono text-sm font-semibold">{schedule.time}</span>
+                      {schedule.note && (
+                        <span className="text-xs text-muted-foreground mt-0.5">{schedule.note}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="return" className="mt-0">
+                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
+                  {route.returnSchedule.map((schedule, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center justify-center p-2 rounded-lg bg-accent border border-border"
+                    >
+                      <Clock className="w-3 h-3 text-primary mb-1" />
+                      <span className="font-mono text-sm font-semibold">{schedule.time}</span>
+                      {schedule.note && (
+                        <span className="text-xs text-muted-foreground mt-0.5">{schedule.note}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </div>
+      <FloatingCurrentTime />
+    </div>
+  );
+}
