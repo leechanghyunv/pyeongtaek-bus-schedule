@@ -1,0 +1,55 @@
+{
+  "id": "route-14",
+  "routeNumber": "14",
+  "routeName": "광동제약",
+  "contractor": "삼성중공업/뉴부자",
+  "type": "regular",
+  "rotation": true,
+  "origin": {
+    "id": "origin-광동제약",
+    "name": "광동제약 앞 버스정류장",
+    "address": "",
+    "lat": 37.04337189999996,
+    "lng": 127.06221099999927
+  },
+  "destination": {
+    "id": "dest-광동제약",
+    "name": "셔틀버스 승강장",
+    "address": "",
+    "lat": 37.02781906866656,
+    "lng": 127.05154573327503
+  },
+  "stops": [
+    {
+      "id": "stop-광동-2",
+      "name": "더뷔페 앞 횡단보도",
+      "address": "",
+      "lat": 37.04137429999982,
+      "lng": 127.06546699999994
+    },
+    {
+      "id": "stop-광동-3",
+      "name": "청담뷔페 앞",
+      "address": "",
+      "lat": 37.04186040000003,
+      "lng": 127.06562789999934
+    },
+    {
+      "id": "stop-광동-4",
+      "name": "SK주유소 앞 버스정류장",
+      "address": "",
+      "lat": 37.04367749999974,
+      "lng": 127.06261399999933
+    }
+  ],
+  "commuteSchedule": [
+    {
+      "time": "05:50"
+    }
+  ],
+  "returnSchedule": [
+    {
+      "time": "17:30"
+    }
+  ]
+}

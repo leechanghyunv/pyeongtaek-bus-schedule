@@ -1,0 +1,111 @@
+{
+  "id": "route-07",
+  "routeNumber": "7",
+  "routeName": "첨단로주차장-5번Gate",
+  "contractor": "삼성물산/정원",
+  "type": "express",
+  "origin": {
+    "id": "origin-첨단로5번Gate",
+    "name": "첨단로주차장",
+    "address": "",
+    "lat": 37.02623326318984,
+    "lng": 127.0395702075391
+  },
+  "destination": {
+    "id": "dest-첨단로5번Gate",
+    "name": "5번Gate",
+    "address": "",
+    "lat": 37.027308981894606,
+    "lng": 127.0670292327595
+  },
+  "stops": [],
+  "commuteSchedule": [
+    {
+      "time": "04:00"
+    },
+    {
+      "time": "05:00"
+    },
+    {
+      "time": "05:30"
+    },
+    {
+      "time": "05:40"
+    },
+    {
+      "time": "05:45"
+    },
+    {
+      "time": "05:50"
+    },
+    {
+      "time": "05:55"
+    },
+    {
+      "time": "06:00"
+    },
+    {
+      "time": "06:05"
+    },
+    {
+      "time": "06:10"
+    },
+    {
+      "time": "06:20"
+    },
+    {
+      "time": "06:30"
+    }
+  ],
+  "returnSchedule": [
+    {
+      "time": "17:05"
+    },
+    {
+      "time": "17:10"
+    },
+    {
+      "time": "17:15"
+    },
+    {
+      "time": "19:15"
+    },
+    {
+      "time": "19:20"
+    }
+  ],
+  "weekendCommuteSchedule": [
+    {
+      "time": "05:00"
+    },
+    {
+      "time": "05:30"
+    },
+    {
+      "time": "05:50"
+    },
+    {
+      "time": "06:00"
+    },
+    {
+      "time": "06:30"
+    }
+  ],
+  "weekendReturnSchedule": [
+    {
+      "time": "15:10"
+    },
+    {
+      "time": "15:20"
+    },
+    {
+      "time": "15:30"
+    },
+    {
+      "time": "16:20"
+    },
+    {
+      "time": "17:20"
+    }
+  ]
+}

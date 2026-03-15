@@ -1,0 +1,58 @@
+{
+  "id": "route-16",
+  "routeNumber": "16",
+  "routeName": "송탄역",
+  "contractor": "삼성물산/정원",
+  "type": "express",
+  "origin": {
+    "id": "origin-송탄역",
+    "name": "송탄역",
+    "address": "",
+    "lat": 37.07453,
+    "lng": 127.0545
+  },
+  "destination": {
+    "id": "dest-송탄역",
+    "name": "2번Gate",
+    "address": "",
+    "lat": 37.028281,
+    "lng": 127.054411
+  },
+  "stops": [
+    {
+      "id": "stop-송탄역-2",
+      "name": "5번Gate(퇴근 W4 출발)",
+      "address": "",
+      "lat": 37.027308981894606,
+      "lng": 127.0670292327595
+    }
+  ],
+  "commuteSchedule": [
+    {
+      "time": "05:20"
+    },
+    {
+      "time": "05:30"
+    },
+    {
+      "time": "05:40"
+    },
+    {
+      "time": "05:50"
+    }
+  ],
+  "returnSchedule": [
+    {
+      "time": "17:20"
+    },
+    {
+      "time": "17:40"
+    },
+    {
+      "time": "19:10"
+    },
+    {
+      "time": "19:40"
+    }
+  ]
+}

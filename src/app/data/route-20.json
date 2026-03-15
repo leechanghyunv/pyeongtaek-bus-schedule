@@ -1,0 +1,93 @@
+{
+  "id": "route-20",
+  "routeNumber": "20",
+  "routeName": "기술인 2단지 순환셔틀",
+  "contractor": "삼성E&A/부자",
+  "type": "regular",
+  "origin": {
+    "id": "origin-기술인2단지",
+    "name": "W4",
+    "address": "",
+    "lat": 37.03166270676602,
+    "lng": 127.05028392718626
+  },
+  "destination": {
+    "id": "dest-기술인2단지",
+    "name": "W2 GATE",
+    "address": "",
+    "lat": 37.030355171008544,
+    "lng": 127.04111208195921
+  },
+  "stops": [],
+  "commuteSchedule": [
+    {
+      "time": "04:40"
+    },
+    {
+      "time": "05:40"
+    },
+    {
+      "time": "06:00"
+    },
+    {
+      "time": "06:10"
+    },
+    {
+      "time": "06:40"
+    },
+    {
+      "time": "13:40"
+    },
+    {
+      "time": "14:40"
+    },
+    {
+      "time": "18:40"
+    }
+  ],
+  "returnSchedule": [
+    {
+      "time": "05:10"
+    },
+    {
+      "time": "15:10"
+    },
+    {
+      "time": "17:10"
+    },
+    {
+      "time": "17:20"
+    },
+    {
+      "time": "19:05"
+    },
+    {
+      "time": "19:10"
+    },
+    {
+      "time": "00:10"
+    }
+  ],
+  "weekendCommuteSchedule": [
+    {
+      "time": "06:00"
+    },
+    {
+      "time": "06:10"
+    },
+    {
+      "time": "06:40"
+    }
+  ],
+  "weekendReturnSchedule": [
+    {
+      "time": "16:00"
+    },
+    {
+      "time": "16:30"
+    },
+    {
+      "time": "17:10"
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { busRoutes } from '../data/busRoutes';
+import { getRouteById } from '../data/busRoutesManager';
+
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
@@ -11,6 +12,7 @@ import { ScheduleType } from '../types/bus';
 import { Button } from './ui/button';
 import { toast } from 'sonner';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Switch } from './ui/switch';
 
 function FloatingCurrentTime() {
   const [currentTime, setCurrentTime] = useState<string>('');
@@ -82,7 +84,13 @@ export function BusScheduleDetail() {
   const router = useRouter();
   const [scheduleType, setScheduleType] = useState<ScheduleType>('commute');
 
-  const route = busRoutes.find(r => r.id === routeId);
+const [isWeekend, setIsWeekend] = useState(false);
+
+  const handleWeekendToggle = (checked: boolean) => {
+    setIsWeekend(checked);
+  };
+
+  const route = getRouteById(routeId);
 
   useEffect(() => {
     if (!route) {
@@ -182,7 +190,22 @@ export function BusScheduleDetail() {
         {/* Schedule */}
         <Card>
           <CardHeader>
-            <CardTitle>운행 시간표</CardTitle>
+            {/* <CardTitle>운행 시간표</CardTitle> */}
+            <div className="flex items-center justify-between">
+              <CardTitle>운행 시간표</CardTitle>
+              {(route.weekendCommuteSchedule || route.weekendReturnSchedule) && (
+                <div className="flex items-center gap-2">
+                  <span className={`text-sm ${isWeekend ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>주말</span>
+                  <Switch
+                    checked={isWeekend}
+                    onCheckedChange={handleWeekendToggle}
+                    className="data-[state=checked]:bg-teal-500"
+                  />
+                </div>
+              )}
+            </div>
+
+
             <CardDescription>출근/퇴근 시간대별 운행 스케줄</CardDescription>
           </CardHeader>
           <CardContent>
@@ -194,7 +217,7 @@ export function BusScheduleDetail() {
 
               <TabsContent value="commute" className="mt-0">
                 <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
-                  {route.commuteSchedule.map((schedule, index) => (
+                  {(isWeekend && route.weekendCommuteSchedule ? route.weekendCommuteSchedule : route.commuteSchedule).map((schedule, index) => (
                     <div
                       key={index}
                       className="flex flex-col items-center justify-center p-2 rounded-lg bg-accent border border-border"
@@ -211,7 +234,7 @@ export function BusScheduleDetail() {
 
               <TabsContent value="return" className="mt-0">
                 <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
-                  {route.returnSchedule.map((schedule, index) => (
+                  {(isWeekend && route.weekendReturnSchedule ? route.weekendReturnSchedule : route.returnSchedule).map((schedule, index) => (
                     <div
                       key={index}
                       className="flex flex-col items-center justify-center p-2 rounded-lg bg-accent border border-border"

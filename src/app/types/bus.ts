@@ -5,6 +5,8 @@ export interface BusStop {
   id: string;
   name: string;
   address: string;
+  lat?: number;
+  lng?: number;
 }
 
 export interface TimeSchedule {
@@ -12,14 +14,20 @@ export interface TimeSchedule {
   note?: string;
 }
 
-export interface BusRoute {
+export interface BusRouteSummary {
   id: string;
   routeNumber: string;
   routeName: string;
+  contractor: string;
   type: BusType;
+}
+
+export interface BusRoute extends BusRouteSummary {
   origin: BusStop;
   destination: BusStop;
   stops: BusStop[];
   commuteSchedule: TimeSchedule[];
   returnSchedule: TimeSchedule[];
+  weekendCommuteSchedule?: TimeSchedule[];
+  weekendReturnSchedule?: TimeSchedule[];
 }

@@ -1,0 +1,53 @@
+{
+  "id": "route-18",
+  "routeNumber": "18",
+  "routeName": "칠원동",
+  "contractor": "삼성중공업/뉴부자",
+  "type": "regular",
+  "origin": {
+    "id": "origin-칠원동-평택F",
+    "name": "동광APT 맞은편 버스정류장",
+    "address": "",
+    "lat": 37.031346915066166,
+    "lng": 127.10055618816303
+  },
+  "destination": {
+    "id": "dest-칠원동-평택F",
+    "name": "힐맘시티APT 2단지 (204동 맞은편 버스정류장)",
+    "address": "",
+    "lat": 37.02551132564043,
+    "lng": 127.10697957430276
+  },
+  "stops": [
+    {
+      "id": "stop-칠원동F-2",
+      "name": "힐맘시티APT 1단지 (103동 맞은편 버스정류장)",
+      "address": "",
+      "lat": 37.025524099692184,
+      "lng": 127.10272030149991
+    }
+  ],
+  "commuteSchedule": [
+    {
+      "time": "05:20"
+    },
+    {
+      "time": "05:50"
+    }
+  ],
+  "returnSchedule": [
+    {
+      "time": "18:00"
+    }
+  ],
+  "weekendCommuteSchedule": [
+    {
+      "time": "05:20"
+    }
+  ],
+  "weekendReturnSchedule": [
+    {
+      "time": "17:10"
+    }
+  ]
+}

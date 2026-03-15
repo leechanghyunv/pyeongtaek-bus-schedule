@@ -1,7 +1,9 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { busRoutes } from '../data/busRoutes';
+import { getAllRoutes } from '../data/busRoutesManager';
+
+const busRoutes = getAllRoutes();
 import { BusRouteCard } from './BusRouteCard';
 import { Bus, Menu } from 'lucide-react';
 import { useState } from 'react';

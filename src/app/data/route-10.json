@@ -1,0 +1,90 @@
+{
+  "id": "route-10",
+  "routeNumber": "10",
+  "routeName": "지산동A",
+  "contractor": "삼성물산/더조은",
+  "type": "regular",
+  "origin": {
+    "id": "origin-지산동A",
+    "name": "삼익아파트 버스정류장",
+    "address": "",
+    "lat": 37.08238220000014,
+    "lng": 127.06026620000009
+  },
+  "destination": {
+    "id": "dest-지산동A",
+    "name": "W4 셔틀버스 승강장",
+    "address": "",
+    "lat": 37.02781906866656,
+    "lng": 127.05154573327503
+  },
+  "stops": [
+    {
+      "id": "stop-지산동A-2",
+      "name": "지산현대아파트 버스정류장",
+      "address": "",
+      "lat": 37.078610299999674,
+      "lng": 127.06359129999977
+    },
+    {
+      "id": "stop-지산동A-3",
+      "name": "송탄출장소 맞은편 버스정류장",
+      "address": "",
+      "lat": 37.06724120000003,
+      "lng": 127.0634384999997
+    }
+  ],
+  "commuteSchedule": [
+    {
+      "time": "05:15"
+    },
+    {
+      "time": "05:25"
+    },
+    {
+      "time": "05:35"
+    },
+    {
+      "time": "05:55"
+    }
+  ],
+  "returnSchedule": [
+    {
+      "time": "17:20"
+    },
+    {
+      "time": "17:35"
+    },
+    {
+      "time": "17:50"
+    }
+  ],
+  "weekendCommuteSchedule": [
+    {
+      "time": "04:30"
+    },
+    {
+      "time": "05:00"
+    },
+    {
+      "time": "05:20"
+    },
+    {
+      "time": "05:30"
+    },
+    {
+      "time": "05:50"
+    }
+  ],
+  "weekendReturnSchedule": [
+    {
+      "time": "15:10"
+    },
+    {
+      "time": "16:25"
+    },
+    {
+      "time": "17:15"
+    }
+  ]
+}

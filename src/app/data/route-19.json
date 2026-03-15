@@ -1,0 +1,63 @@
+{
+  "id": "route-19",
+  "routeNumber": "19",
+  "routeName": "팽성읍-평택E",
+  "contractor": "삼성E&A/뉴부자",
+  "type": "regular",
+  "origin": {
+    "id": "origin-팽성읍-평택E",
+    "name": "안정6리 버스정류장",
+    "address": "",
+    "lat": 36.96426372751686,
+    "lng": 127.05588786894772
+  },
+  "destination": {
+    "id": "dest-팽성읍-평택E",
+    "name": "W4 외부주차",
+    "address": "",
+    "lat": 37.02781906866656,
+    "lng": 127.05154573327503
+  },
+  "stops": [
+    {
+      "id": "stop-팽성읍E-2",
+      "name": "향교아파트",
+      "address": "",
+      "lat": 36.964463693885854,
+      "lng": 127.06150825796811
+    },
+    {
+      "id": "stop-팽성읍E-3",
+      "name": "팽성읍 사무소 버스정류장[대원아파트 105동 앞]",
+      "address": "",
+      "lat": 36.96127922175595,
+      "lng": 127.05005794606808
+    }
+  ],
+  "commuteSchedule": [
+    {
+      "time": "05:25"
+    },
+    {
+      "time": "05:35"
+    }
+  ],
+  "returnSchedule": [
+    {
+      "time": "17:30"
+    },
+    {
+      "time": "19:30"
+    }
+  ],
+  "weekendCommuteSchedule": [
+    {
+      "time": "05:35"
+    }
+  ],
+  "weekendReturnSchedule": [
+    {
+      "time": "17:30"
+    }
+  ]
+}

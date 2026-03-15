@@ -1,0 +1,142 @@
+[
+  {
+    "id": "route-01",
+    "routeNumber": "1",
+    "routeName": "독곡/지산동B",
+    "contractor": "삼성물산/더조은",
+    "type": "regular"
+  },
+  {
+    "id": "route-02",
+    "routeNumber": "2",
+    "routeName": "동삭동-평택A-1",
+    "contractor": "삼성E&A/뉴부자",
+    "type": "express"
+  },
+  {
+    "id": "route-03",
+    "routeNumber": "3",
+    "routeName": "동삭동-평택A-2",
+    "contractor": "삼성E&A/뉴부자",
+    "type": "express"
+  },
+  {
+    "id": "route-04",
+    "routeNumber": "4",
+    "routeName": "독곡/지산동B 조출",
+    "contractor": "삼성물산/더조은",
+    "type": "regular"
+  },
+  {
+    "id": "route-05",
+    "routeNumber": "5",
+    "routeName": "서정동",
+    "contractor": "삼성물산/더조은",
+    "type": "regular"
+  },
+  {
+    "id": "route-06",
+    "routeNumber": "6",
+    "routeName": "첨단로주차장-2번Gate",
+    "contractor": "삼성물산/정원",
+    "type": "regular"
+  },
+  {
+    "id": "route-07",
+    "routeNumber": "7",
+    "routeName": "첨단로주차장-5번Gate",
+    "contractor": "삼성물산/정원",
+    "type": "express"
+  },
+  {
+    "id": "route-08",
+    "routeNumber": "8",
+    "routeName": "평택역-평택D",
+    "contractor": "삼성E&A/부자",
+    "type": "regular"
+  },
+  {
+    "id": "route-09",
+    "routeNumber": "9",
+    "routeName": "서정리역",
+    "contractor": "삼성물산/정원",
+    "type": "express"
+  },
+  {
+    "id": "route-10",
+    "routeNumber": "10",
+    "routeName": "지산동A",
+    "contractor": "삼성물산/더조은",
+    "type": "regular"
+  },
+  {
+    "id": "route-12",
+    "routeNumber": "12",
+    "routeName": "이충동",
+    "contractor": "삼성물산/더조은",
+    "type": "regular"
+  },
+  {
+    "id": "route-13",
+    "routeNumber": "13",
+    "routeName": "비전동-평택B",
+    "contractor": "삼성E&A/뉴부자",
+    "type": "regular"
+  },
+  {
+    "id": "route-14",
+    "routeNumber": "14",
+    "routeName": "광동제약",
+    "contractor": "삼성중공업/뉴부자",
+    "type": "regular"
+  },
+  {
+    "id": "route-15",
+    "routeNumber": "15",
+    "routeName": "셔틀버스 승강장",
+    "contractor": "삼성E&A/부자",
+    "type": "express"
+  },
+  {
+    "id": "route-16",
+    "routeNumber": "16",
+    "routeName": "송탄역",
+    "contractor": "삼성물산/정원",
+    "type": "express"
+  },
+  {
+    "id": "route-17",
+    "routeNumber": "17",
+    "routeName": "용이동-평택C",
+    "contractor": "삼성E&A/뉴부자",
+    "type": "regular"
+  },
+  {
+    "id": "route-18",
+    "routeNumber": "18",
+    "routeName": "칠원동",
+    "contractor": "삼성중공업/뉴부자",
+    "type": "regular"
+  },
+  {
+    "id": "route-19",
+    "routeNumber": "19",
+    "routeName": "팽성읍-평택E",
+    "contractor": "삼성E&A/뉴부자",
+    "type": "regular"
+  },
+  {
+    "id": "route-11",
+    "routeNumber": "11",
+    "routeName": "신장동",
+    "contractor": "삼성물산/더조은",
+    "type": "regular"
+  },
+  {
+    "id": "route-20",
+    "routeNumber": "20",
+    "routeName": "기술인 2단지 순환셔틀",
+    "contractor": "삼성E&A/부자",
+    "type": "regular"
+  }
+]

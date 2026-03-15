@@ -2,12 +2,14 @@
 
 import { Bus, Clock, X } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
-import { busRoutes } from '../data/busRoutes';
 import { BusRouteCard } from './BusRouteCard';
 import { Button } from './ui/button';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
+import { getAllRoutes } from '../data/busRoutesManager';
+
+const busRoutes = getAllRoutes();
 
 interface RecentRoute {
   routeId: string;
@@ -47,7 +49,7 @@ export function BusScheduleHome() {
             </div>
           </div>
           <div>
-            <h1 className="text-2xl font-bold mb-1">SK 용인 하이닉스 버스 시간표</h1>
+            <h1 className="text-2xl font-bold mb-1">평택 기술인 버스 시간표</h1>
             <p className="text-sm text-muted-foreground">
               노선을 선택하여 상세 시간표를 확인하세요
             </p>
