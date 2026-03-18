@@ -1,14 +1,12 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
-import { getRouteById } from '../data/busRoutesManager';
-
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { MapPin, Navigation, Clock, CircleDot, ArrowLeft, Copy, Check } from 'lucide-react';
-import { ScheduleType } from '../types/bus';
+import { BusRoute, BusStop, TimeSchedule, ScheduleType } from '../types/bus';
 import { Button } from './ui/button';
 import { toast } from 'sonner';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -78,19 +76,18 @@ function CopyAddress({ address }: { address: string }) {
   );
 }
 
-export function BusScheduleDetail() {
-  const params = useParams();
-  const routeId = params?.routeId as string;
+type Props = {
+  route: BusRoute | undefined;
+};
+
+export function BusScheduleDetail({ route }: Props) {
   const router = useRouter();
   const [scheduleType, setScheduleType] = useState<ScheduleType>('commute');
-
-const [isWeekend, setIsWeekend] = useState(false);
+  const [isWeekend, setIsWeekend] = useState(false);
 
   const handleWeekendToggle = (checked: boolean) => {
     setIsWeekend(checked);
   };
-
-  const route = getRouteById(routeId);
 
   useEffect(() => {
     if (!route) {
@@ -152,7 +149,7 @@ const [isWeekend, setIsWeekend] = useState(false);
             </div>
 
             {/* Stops */}
-            {route.stops.map((stop, index) => (
+            {route.stops.map((stop: BusStop, index: number) => (
               <div key={stop.id} className="flex gap-3">
                 <div className="flex flex-col items-center">
                   <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
@@ -217,7 +214,7 @@ const [isWeekend, setIsWeekend] = useState(false);
 
               <TabsContent value="commute" className="mt-0">
                 <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
-                  {(isWeekend && route.weekendCommuteSchedule ? route.weekendCommuteSchedule : route.commuteSchedule).map((schedule, index) => (
+                  {(isWeekend && route.weekendCommuteSchedule ? route.weekendCommuteSchedule : (route.commuteSchedule ?? [])).map((schedule: TimeSchedule, index: number) => (
                     <div
                       key={index}
                       className="flex flex-col items-center justify-center p-2 rounded-lg bg-accent border border-border"
@@ -234,7 +231,7 @@ const [isWeekend, setIsWeekend] = useState(false);
 
               <TabsContent value="return" className="mt-0">
                 <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
-                  {(isWeekend && route.weekendReturnSchedule ? route.weekendReturnSchedule : route.returnSchedule).map((schedule, index) => (
+                  {(isWeekend && route.weekendReturnSchedule ? route.weekendReturnSchedule : (route.returnSchedule ?? [])).map((schedule: TimeSchedule, index: number) => (
                     <div
                       key={index}
                       className="flex flex-col items-center justify-center p-2 rounded-lg bg-accent border border-border"
