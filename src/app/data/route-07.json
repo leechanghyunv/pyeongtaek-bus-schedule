@@ -7,14 +7,14 @@
   "origin": {
     "id": "origin-첨단로5번Gate",
     "name": "첨단로주차장",
-    "address": "",
+    "address": "경기도 평택시 고덕면 좌교리 3710",
     "lat": 37.02623326318984,
     "lng": 127.0395702075391
   },
   "destination": {
     "id": "dest-첨단로5번Gate",
     "name": "5번Gate",
-    "address": "",
+    "address": "경기도 평택시 고덕동 1733",
     "lat": 37.027308981894606,
     "lng": 127.0670292327595
   },
