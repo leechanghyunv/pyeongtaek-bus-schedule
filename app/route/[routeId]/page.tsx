@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${route.routeName} 버스 시간표`,
-    description: `${route.origin.name} 출발 버스 시간표. 출근 ${route.commuteSchedule.length}회, 퇴근 ${route.returnSchedule.length}회 운행.`,
+    description: `${route.origin.name} 출발 버스 시간표. 출근 ${route.commuteSchedule?.length ?? 0}회, 퇴근 ${route.returnSchedule?.length ?? 0}회 운행.`,
   };
 }
 
@@ -22,6 +22,8 @@ export function generateStaticParams() {
   return getAllRoutes().map(route => ({ routeId: route.id }));
 }
 
-export default function Page() {
-  return <BusScheduleDetail />;
+export default async function Page({ params }: Props) {
+  const { routeId } = await params;
+  const route = getRouteById(routeId);
+  return <BusScheduleDetail route={route} />;
 }
