@@ -3,7 +3,7 @@ import './globals.css';
 import { BusScheduleLayout } from '../src/app/components/BusScheduleLayout';
 import { Toaster } from '../src/app/components/ui/sonner';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dca4a672.pyeongtaek-bus-schedule.pages.dev';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -49,6 +49,11 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  verification: {
+    other: {
+      'naver-site-verification': '50a9b7a8db7b7f9030dc65b3cf77ab959dbcd35c',
+    },
   },
 };
 
