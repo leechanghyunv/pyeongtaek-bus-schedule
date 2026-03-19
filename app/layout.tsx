@@ -58,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning>
         <BusScheduleLayout>{children}</BusScheduleLayout>
         <Toaster position="bottom-center" richColors />
+        <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "3507c24ffa004e5293a10e8777eb2cda"}'></script>
       </body>
     </html>
   );
