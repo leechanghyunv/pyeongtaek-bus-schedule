@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Badge } from './ui/badge';
 import { MapPin, Navigation, Clock, CircleDot, ArrowLeft, Copy, Check } from 'lucide-react';
 import { BusRoute, BusStop, TimeSchedule, ScheduleType } from '../types/bus';
 import { Button } from './ui/button';
@@ -88,6 +87,8 @@ export function BusScheduleDetail({ route }: Props) {
   const handleWeekendToggle = (checked: boolean) => {
     setIsWeekend(checked);
   };
+
+  
 
   useEffect(() => {
     if (!route) {
