@@ -3,7 +3,8 @@ import './globals.css';
 import { BusScheduleLayout } from '../src/app/components/BusScheduleLayout';
 import { Toaster } from '../src/app/components/ui/sonner';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dca4a672.pyeongtaek-bus-schedule.pages.dev';
+// layout.tsx
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pyeongtaek-bus-schedule.pages.dev';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
   },
   verification: {
     other: {
-      'naver-site-verification': '50a9b7a8db7b7f9030dc65b3cf77ab959dbcd35c',
+      'naver-site-verification': 'b71355b7718a122949fb5b62d55800153d577986',
     },
   },
 };
@@ -60,6 +61,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
+      <head>
+        <meta name="naver-site-verification" content="50a9b7a8db7b7f9030dc65b3cf77ab959dbcd35c" />
+      </head>
       <body suppressHydrationWarning>
         <BusScheduleLayout>{children}</BusScheduleLayout>
         <Toaster position="bottom-center" richColors />
