@@ -62,7 +62,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <head>
-        <meta name="naver-site-verification" content="50a9b7a8db7b7f9030dc65b3cf77ab959dbcd35c" />
+        <meta name="naver-site-verification" content="b71355b7718a122949fb5b62d55800153d577986" />
+        <meta name="google-site-verification" content="Ahznfu41fV8NDA7PALVUzCXKd9ppbG_NK8AjnRNCbaE" />
       </head>
       <body suppressHydrationWarning>
         <BusScheduleLayout>{children}</BusScheduleLayout>
