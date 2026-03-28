@@ -4,73 +4,33 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { MapPin, Navigation, Clock, CircleDot, ArrowLeft, Copy, Check } from 'lucide-react';
+import { MapPin, Navigation, Clock, CircleDot, ArrowLeft, Map } from 'lucide-react';
 import { BusRoute, BusStop, TimeSchedule, ScheduleType } from '../types/bus';
 import { Button } from './ui/button';
-import { toast } from 'sonner';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Switch } from './ui/switch';
+import { FloatingCurrentTime } from './FloatingCurrentTime';
+import { NaverMap } from './NaverMap';
 
-function FloatingCurrentTime() {
-  const [currentTime, setCurrentTime] = useState<string>('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      setCurrentTime(`${hours}:${minutes}`);
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 60000);
-
-    return () => clearInterval(interval);
-  }, []);
+function StopInfo({ address, lat, lng, name }: { address: string; lat?: number; lng?: number; name: string }) {
+  const [showMap, setShowMap] = useState(false);
 
   return (
-    <AnimatePresence>
-      {currentTime && (
-        <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.8 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.8 }}
-          transition={{ duration: 0.2 }}
-          className="fixed bottom-6 right-6 z-50"
-        >
-          <div className="py-2.5 px-3.5 shadow-lg rounded-2xl bg-gray-700 text-white flex flex-col items-start gap-1">
-            <div className="flex items-center gap-1.5 w-full">
-              <Clock className="w-3 h-3 flex-shrink-0" />
-              <span className="text-[10px] opacity-90">현재시간</span>
-            </div>
-            <div className="font-mono font-bold text-lg">{currentTime}</div>
-          </div>
-        </motion.div>
+    <div className="mt-0.5">
+      <div className="text-xs text-muted-foreground flex items-start gap-1">
+        <MapPin className="w-3 h-3 mt-0.5 flex-shrink-0" />
+        <span className="flex-1">{address}</span>
+        {lat && lng && (
+          <button
+            onClick={() => setShowMap(prev => !prev)}
+            className="flex-shrink-0 mt-0.5 hover:text-foreground transition-colors"
+          >
+            <Map className={`w-3 h-3 ${showMap ? 'text-teal-500' : ''}`} />
+          </button>
+        )}
+      </div>
+      {showMap && lat && lng && (
+        <NaverMap lat={lat} lng={lng} name={name} />
       )}
-    </AnimatePresence>
-  );
-}
-
-function CopyAddress({ address }: { address: string }) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(address);
-    setCopied(true);
-    toast.success('주소가 복사되었습니다', { style: { color: 'white', background: 'black' } });
-    setTimeout(() => setCopied(false), 1500);
-  };
-
-  return (
-    <div className="text-xs text-muted-foreground flex items-start gap-1 mt-0.5">
-      <MapPin className="w-3 h-3 mt-0.5 flex-shrink-0" />
-      <span className="flex-1">{address}</span>
-      <button onClick={handleCopy} className="flex-shrink-0 mt-0.5 hover:text-foreground transition-colors">
-        {copied
-          ? <Check className="w-3 h-3 text-teal-500" />
-          : <Copy className="w-3 h-3" />
-        }
-      </button>
     </div>
   );
 }
@@ -83,12 +43,17 @@ export function BusScheduleDetail({ route }: Props) {
   const router = useRouter();
   const [scheduleType, setScheduleType] = useState<ScheduleType>('commute');
   const [isWeekend, setIsWeekend] = useState(false);
+  const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined);
 
   const handleWeekendToggle = (checked: boolean) => {
     setIsWeekend(checked);
   };
 
-  
+  const handleSelectTime = (time: string) => {
+    setSelectedTime(prev => prev === time ? undefined : time);
+  };
+
+
 
   useEffect(() => {
     if (!route) {
@@ -145,7 +110,7 @@ export function BusScheduleDetail({ route }: Props) {
               </div>
               <div className="flex-1 pt-1">
                 <div className="font-semibold">{route.origin.name}</div>
-                <CopyAddress address={route.origin.address} />
+                <StopInfo address={route.origin.address} lat={route.origin.lat} lng={route.origin.lng} name={route.origin.name} />
               </div>
             </div>
 
@@ -165,7 +130,7 @@ export function BusScheduleDetail({ route }: Props) {
                 </div>
                 <div className="flex-1 pt-1">
                   <div className="font-medium text-sm">{stop.name}</div>
-                  <CopyAddress address={stop.address} />
+                  <StopInfo address={stop.address} lat={stop.lat} lng={stop.lng} name={stop.name} />
                 </div>
               </div>
             ))}
@@ -179,7 +144,7 @@ export function BusScheduleDetail({ route }: Props) {
               </div>
               <div className="flex-1 pt-1">
                 <div className="font-semibold">{route.destination.name}</div>
-                <CopyAddress address={route.destination.address} />
+                <StopInfo address={route.destination.address} lat={route.destination.lat} lng={route.destination.lng} name={route.destination.name} />
               </div>
             </div>
           </CardContent>
@@ -218,12 +183,15 @@ export function BusScheduleDetail({ route }: Props) {
                   {(isWeekend && route.weekendCommuteSchedule ? route.weekendCommuteSchedule : (route.commuteSchedule ?? [])).map((schedule: TimeSchedule, index: number) => (
                     <div
                       key={index}
-                      className="flex flex-col items-center justify-center p-2 rounded-lg bg-accent border border-border"
+                      onClick={() => handleSelectTime(schedule.time)}
+                      className={`flex flex-col items-center justify-center p-2 rounded-lg border cursor-pointer transition-colors ${
+                        selectedTime === schedule.time ? 'bg-teal-100 text-teal-600 border-teal-600' : 'bg-accent border-border'
+                      }`}
                     >
-                      <Clock className="w-3 h-3 text-primary mb-1" />
+                      <Clock className="w-3 h-3 mb-1" />
                       <span className="font-mono text-sm font-semibold">{schedule.time}</span>
                       {schedule.note && (
-                        <span className="text-xs text-muted-foreground mt-0.5">{schedule.note}</span>
+                        <span className="text-xs mt-0.5 opacity-70">{schedule.note}</span>
                       )}
                     </div>
                   ))}
@@ -235,12 +203,15 @@ export function BusScheduleDetail({ route }: Props) {
                   {(isWeekend && route.weekendReturnSchedule ? route.weekendReturnSchedule : (route.returnSchedule ?? [])).map((schedule: TimeSchedule, index: number) => (
                     <div
                       key={index}
-                      className="flex flex-col items-center justify-center p-2 rounded-lg bg-accent border border-border"
+                      onClick={() => handleSelectTime(schedule.time)}
+                      className={`flex flex-col items-center justify-center p-2 rounded-lg border cursor-pointer transition-colors ${
+                        selectedTime === schedule.time ? 'bg-teal-300 text-teal-700 border-teal-700' : 'bg-accent border-border'
+                      }`}
                     >
-                      <Clock className="w-3 h-3 text-primary mb-1" />
+                      <Clock className="w-3 h-3 mb-1" />
                       <span className="font-mono text-sm font-semibold">{schedule.time}</span>
                       {schedule.note && (
-                        <span className="text-xs text-muted-foreground mt-0.5">{schedule.note}</span>
+                        <span className="text-xs mt-0.5 opacity-70">{schedule.note}</span>
                       )}
                     </div>
                   ))}
@@ -250,7 +221,7 @@ export function BusScheduleDetail({ route }: Props) {
           </CardContent>
         </Card>
       </div>
-      <FloatingCurrentTime />
+      <FloatingCurrentTime selectedTime={selectedTime} onDismiss={() => setSelectedTime(undefined)} />
     </div>
   );
 }

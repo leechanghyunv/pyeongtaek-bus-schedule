@@ -90,8 +90,7 @@ export function BusScheduleHome() {
                 className="h-auto py-2.5 px-3.5 shadow-lg hover:shadow-xl transition-all rounded-2xl bg-gray-700 text-white hover:bg-gray-600 flex flex-col items-start gap-1 min-w-[120px]"
               >
                 <div className="flex items-center gap-1.5 w-full">
-                  <Clock className="w-3 h-3 flex-shrink-0" />
-                  <span className="text-[10px] opacity-90">최근 본 노선</span>
+                  <span className="text-[10px] opacity-90">노선 다시보기</span>
                 </div>
                 <div className="font-bold text-lg">{recentRoute.routeName}</div>
               </Button>
