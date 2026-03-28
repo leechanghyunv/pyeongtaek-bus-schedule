@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { MapPin, Navigation, Clock, CircleDot, ArrowLeft, Map } from 'lucide-react';
+import { MapPin, Navigation, Clock, CircleDot, ArrowLeft } from 'lucide-react';
 import { BusRoute, BusStop, TimeSchedule, ScheduleType } from '../types/bus';
 import { Button } from './ui/button';
 import { Switch } from './ui/switch';
@@ -12,25 +12,11 @@ import { FloatingCurrentTime } from './FloatingCurrentTime';
 import { NaverMap } from './NaverMap';
 
 function StopInfo({ address, lat, lng, name }: { address: string; lat?: number; lng?: number; name: string }) {
-  const [showMap, setShowMap] = useState(false);
-
   return (
-    <div className="mt-0.5">
-      <div className="text-xs text-muted-foreground flex items-start gap-1">
-        <MapPin className="w-3 h-3 mt-0.5 flex-shrink-0" />
-        <span className="flex-1">{address}</span>
-        {lat && lng && (
-          <button
-            onClick={() => setShowMap(prev => !prev)}
-            className="flex-shrink-0 mt-0.5 hover:text-foreground transition-colors"
-          >
-            <Map className={`w-3 h-3 ${showMap ? 'text-teal-500' : ''}`} />
-          </button>
-        )}
-      </div>
-      {showMap && lat && lng && (
-        <NaverMap lat={lat} lng={lng} name={name} />
-      )}
+    <div className="text-xs text-muted-foreground flex items-start gap-1 mt-0.5">
+      <MapPin className="w-3 h-3 mt-0.5 flex-shrink-0" />
+      <span className="flex-1">{address}</span>
+      {lat && lng && <NaverMap lat={lat} lng={lng} name={name} address={address} />}
     </div>
   );
 }
