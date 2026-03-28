@@ -5,8 +5,9 @@ import { getAllRoutes } from '../data/busRoutesManager';
 
 const busRoutes = getAllRoutes();
 import { BusRouteCard } from './BusRouteCard';
-import { Bus, Menu } from 'lucide-react';
+import { Bus, Menu, Search } from 'lucide-react';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/button';
 import { ScrollArea } from './ui/scroll-area';
@@ -15,6 +16,7 @@ export function BusScheduleLayout({ children }: { children: React.ReactNode }) {
   const params = useParams();
   const routeId = params?.routeId as string | undefined;
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const RouteList = () => (
     <div className="space-y-3">
@@ -37,7 +39,7 @@ export function BusScheduleLayout({ children }: { children: React.ReactNode }) {
           <Sheet open={open} onOpenChange={setOpen}>
            {/* 모바일 햄버거 메뉴 버튼 */}
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" className="w-10 h-10">
+              <Button variant="ghost" size="icon" className="w-10 h-10 border border-border">
                 <Menu className="w-12 h-12" />
               </Button>
             </SheetTrigger>
@@ -56,10 +58,19 @@ export function BusScheduleLayout({ children }: { children: React.ReactNode }) {
           </Sheet>
           {/* 버스 아이콘 + 타이틀 */}
           {/* <Bus className="w-8 h-8 text-primary" /> */}
-          <div>
+          <div className="flex-1">
             <h1 className="text-base font-bold">버스 시간표</h1>
             <p className="text-xs text-muted-foreground">출근/퇴근 시간대별 운행 스케줄</p>
           </div>
+          {/* 검색 버튼 */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="w-10 h-10 "
+            onClick={() => router.push('/search')}
+          >
+            <Search className="w-5 h-5" />
+          </Button>
         </div>
       </header>
 

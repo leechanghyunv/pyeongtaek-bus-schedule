@@ -18,7 +18,7 @@ export function NaverMap({ lat, lng, name, address }: NaverMapProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 text-xs text-teal-600 hover:text-teal-700 mt-1"
+      className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground mt-1"
     >
       <Map className="w-3 h-3" />
     </a>
