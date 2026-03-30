@@ -20,6 +20,7 @@ export function BusScheduleLayout({ children }: { children: React.ReactNode }) {
 
 
 const getStoreLink = () => {
+  if (typeof navigator === 'undefined') return "https://app-link-theta.vercel.app";
   const ua = navigator.userAgent;
   if (/android/i.test(ua)) return "https://play.google.com/store/apps/details?id=com.app.calendar_project_240727";
   if (/iphone|ipad|ipod/i.test(ua)) return "https://apps.apple.com/kr/app/워크캘린더-공수달력-공수계산기-일용직-노가다-필수/id6596813027";
