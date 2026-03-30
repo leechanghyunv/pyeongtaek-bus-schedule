@@ -18,6 +18,14 @@ export function BusScheduleLayout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
+
+const getStoreLink = () => {
+  const ua = navigator.userAgent;
+  if (/android/i.test(ua)) return "https://play.google.com/store/apps/details?id=com.app.calendar_project_240727";
+  if (/iphone|ipad|ipod/i.test(ua)) return "https://apps.apple.com/kr/app/워크캘린더-공수달력-공수계산기-일용직-노가다-필수/id6596813027";
+  return "https://app-link-theta.vercel.app";
+};
+
   const RouteList = () => (
     <div className="space-y-3">
       {busRoutes.map((route) => (
@@ -58,10 +66,29 @@ export function BusScheduleLayout({ children }: { children: React.ReactNode }) {
           </Sheet>
           {/* 버스 아이콘 + 타이틀 */}
           {/* <Bus className="w-8 h-8 text-primary" /> */}
-          <div className="flex-1">
+
+
+          
+          {/* <div className="flex-1">
             <h1 className="text-base font-bold">버스 시간표</h1>
             <p className="text-xs text-muted-foreground">출근/퇴근 시간대별 운행 스케줄</p>
+          </div> */}
+          
+          <div className="flex-1">
+            <h1 className="text-sm font-bold">
+            공수달력 <span className="text-teal-700 animate-blink3">워크캘린더</span>에서 제공합니다
+            </h1>
+            
+            <a href={getStoreLink()}
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-xs font-bold text-teal-700 underline block"
+            >
+            워크캘린더 만나보기
+            </a>
           </div>
+
+
           {/* 검색 버튼 */}
           <Button
             variant="ghost"
